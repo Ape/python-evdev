@@ -18,7 +18,7 @@ def list_devices(input_device_dir='/dev/input'):
 
 
 def is_device(fn):
-    '''Check if ``fn`` exists, is readable and if it is a character device.'''
+    '''Check if ``fn`` exists, is a readable and writable character device.'''
 
     if not os.path.exists(fn):
         return False
@@ -28,6 +28,9 @@ def is_device(fn):
         return False
 
     if not os.access(fn, os.R_OK):
+        return False
+
+    if not os.access(fn, os.W_OK):
         return False
 
     return True
